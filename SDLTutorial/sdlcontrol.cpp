@@ -173,7 +173,6 @@ void SDLControl::drawSprite(int sprite, int spriteX, int spriteY)
 		case 2:
 		srX = 150;
 		srY = 0;
-
 		W = 50;
 		H = 50;
 		break;
@@ -182,7 +181,6 @@ void SDLControl::drawSprite(int sprite, int spriteX, int spriteY)
 		case 3:
 		srX = 200;
 		srY = 0;
-
 		W = 50;
 		H = 50;
 		break;
