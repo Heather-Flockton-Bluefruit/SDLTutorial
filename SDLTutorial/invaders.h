@@ -27,12 +27,13 @@ class InvaderGrid
 public:
 	Invader m_invaders[50];
 	void setupGrid();
-	//void moveAllInvaders();
+	void drawAll();
+	void moveAllInvaders();
 	//void addInvaderToList();
 	//void checkCollisions();
-	void drawAll();
-private:
 
+private:
+	
 };
 
 extern InvaderGrid gridOfInvaders;

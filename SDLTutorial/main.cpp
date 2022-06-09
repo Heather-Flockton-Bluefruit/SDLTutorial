@@ -31,7 +31,10 @@ int main( int argc, char* args[] )
 
 			p1catship.controller();
 
+			gridOfInvaders.moveAllInvaders();
+
 			gridOfInvaders.drawAll();
+
 						
 			mysdlcontrol.endOfFrame();
 		}

@@ -4,6 +4,10 @@
 
 InvaderGrid gridOfInvaders;
 
+
+int totalNumberOfInvaders = 50;
+
+
 void Invader::draw()
 {
 	if( m_onOff )
@@ -47,9 +51,29 @@ void InvaderGrid::setupGrid()
 
 void InvaderGrid::drawAll()
 {
-	for( int numberOfInvader = 0; numberOfInvader < 50; numberOfInvader++ )
+	for( int numberOfInvader = 0; numberOfInvader < totalNumberOfInvaders; numberOfInvader++ )
 	{
 		m_invaders[numberOfInvader].draw();
 	}
 }
 
+int stepIncrement = 1;
+
+void InvaderGrid::moveAllInvaders()
+{
+	if( m_invaders[9].m_positionX > 930 )
+	{
+		stepIncrement = -stepIncrement;
+	}
+
+	if( m_invaders[0].m_positionX < 47 )
+	{
+		stepIncrement = -stepIncrement;
+	}
+
+	for( int invader = 0; invader < totalNumberOfInvaders; invader++ )
+	{
+		m_invaders[invader].m_positionX += stepIncrement;
+	}
+
+}
