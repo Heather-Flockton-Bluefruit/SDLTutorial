@@ -101,6 +101,8 @@ void SDLControl::drawBackground()
 
 void SDLControl::readInput()
 {
+	m_spacePressed = false;
+
 	while( SDL_PollEvent( &e ) != 0 )
 	{
 		//User requests quit
@@ -112,6 +114,17 @@ void SDLControl::readInput()
 		{
 			m_quitneeded = true;
 		}
+		//Keypress Held
+		else if(( e.type == SDL_KEYDOWN ) && ( m_spaceStillPressed ))
+		{
+			switch( e.key.keysym.sym )
+			{
+				case SDLK_SPACE:
+					m_spaceHeld = true;
+					break;
+			}
+		}
+		//Keypress down
 		else if( e.type == SDL_KEYDOWN )
 		{
 			switch( e.key.keysym.sym )
@@ -127,8 +140,14 @@ void SDLControl::readInput()
 				case SDLK_a:
 					m_aPressed = true;
 					break;
+
+				case SDLK_SPACE:
+					m_spacePressed = true;
+					m_spaceStillPressed = true;
+					break;
 			}
 		}
+		//Keypress up
 		else if( e.type == SDL_KEYUP )
 		{
 			switch( e.key.keysym.sym )
@@ -143,6 +162,12 @@ void SDLControl::readInput()
 
 				case SDLK_a:
 					m_aPressed = false;
+					break;
+
+				case SDLK_SPACE:
+					m_spacePressed = false;
+					m_spaceStillPressed = false;
+					m_spaceHeld = false;
 					break;
 			}
 		}
@@ -193,6 +218,34 @@ void SDLControl::drawSprite(int sprite, int spriteX, int spriteY)
 		W = 50;
 		H = 50;
 		break;
+
+		//Friendly Bullet
+		case 5:
+		srX = 2;
+		srY = 100;
+
+		W = 8;
+		H = 25;
+		break;
+
+		//H for Held down
+		case 6:
+		srX = 350;
+		srY = 0;
+
+		W = 50;
+		H = 50;
+		break;
+
+		//H for Held down
+		case 7:
+		srX = 400;
+		srY = 0;
+
+		W = 50;
+		H = 50;
+		break;
+
 	}
 
 	SDL_Rect sr = {srX, srY, W, H};
