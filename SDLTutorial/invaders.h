@@ -6,7 +6,6 @@
 #include <string>
 
 
-
 class Invader
 {
 public:
@@ -29,8 +28,6 @@ public:
 	void setupGrid();
 	void drawAll();
 	void moveAllInvaders();
-	//void addInvaderToList();
-	//void checkCollisions();
 
 private:
 	

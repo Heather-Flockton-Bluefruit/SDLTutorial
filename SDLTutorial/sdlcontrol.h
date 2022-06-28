@@ -8,6 +8,7 @@
 const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 1024;
 
+
 class SDLControl
 {
 public:
@@ -26,10 +27,15 @@ public:
 	bool m_leftPressed;
 	bool m_rightPressed;
 	bool m_aPressed;
+	bool m_spacePressed;
+	bool m_spaceHeld;
+	//button jabbed, button held down
 
 private:
 	SDL_Window* window;
 	SDL_Event e;
+
+	bool m_spaceStillPressed;
 };
 
 extern SDLControl mysdlcontrol;
