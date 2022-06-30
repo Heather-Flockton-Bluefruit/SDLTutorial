@@ -11,7 +11,7 @@ bool SDLControl::init()
 		return false;
 	}
 		
-	window = SDL_CreateWindow("spase imvaders", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("spase imvaders", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ScreenWidth, ScreenHeight, SDL_WINDOW_SHOWN);
 	if (window == NULL)
 	{
 		printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
@@ -93,8 +93,8 @@ void SDLControl::close()
 
 void SDLControl::drawBackground()
 {
-	SDL_Rect sr = {0, 0, 1024, 1024};
-	SDL_Rect dr = {0, 0, 1024, 1024};
+	SDL_Rect sr = {0, 0, ScreenWidth, ScreenHeight};
+	SDL_Rect dr = {0, 0, ScreenWidth, ScreenHeight};
 	SDL_RenderCopy(mysdlcontrol.renderer, mysdlcontrol.backgroundTexture, &sr, &dr);
 }
 
@@ -174,6 +174,7 @@ void SDLControl::readInput()
 	}
 }
 
+
 void SDLControl::drawSprite(int sprite, int spriteX, int spriteY)
 {
 	int srX, srY = 0;
@@ -185,66 +186,103 @@ void SDLControl::drawSprite(int sprite, int spriteX, int spriteY)
 	
 	switch(sprite)
 	{
-		//catship
-		case 1:
-		srX = 0;
-		srY = 0;
+	case graphicalElements::catship:
+			srX = 0;
+			srY = 0;
+			W = 150;
+			H = 75;
+			break;
 
-		W = 150;
-		H = 75;
-		break;
+		case graphicalElements::catshipSquint:
+			srX = 0;
+			srY = 275;
+			W = 150;
+			H = 75;
+			break;
 
-		//Meeds Invader
-		case 2:
-		srX = 150;
-		srY = 0;
-		W = 50;
-		H = 50;
-		break;
+		case graphicalElements::explodedShip1:
+			srX = 0;
+			srY = 125;
+			W = 150;
+			H = 75;
+			break;
 
-		//Meowth Invader
-		case 3:
-		srX = 200;
-		srY = 0;
-		W = 50;
-		H = 50;
-		break;
+		case graphicalElements::explodedShip2:
+			srX = 0;
+			srY = 200;
+			W = 150;
+			H = 75;
+			break;
 
-		//Jellycat Invader
-		case 4:
-		srX = 250;
-		srY = 0;
+		case graphicalElements::mediumCatInvader:
+			srX = 150;
+			srY = 0;
+			W = 50;
+			H = 50;
+			break;
 
-		W = 50;
-		H = 50;
-		break;
+		case graphicalElements::mediumCatInvader2:
+			srX = 150;
+			srY = 50;
+			W = 50;
+			H = 50;
+			break;
 
-		//Friendly Bullet
-		case 5:
-		srX = 2;
-		srY = 100;
+		case graphicalElements::meowthInvader:
+			srX = 200;
+			srY = 0;
+			W = 50;
+			H = 50;
+			break;
 
-		W = 8;
-		H = 25;
-		break;
+		case graphicalElements::meowthInvader2:
+			srX = 200;
+			srY = 50;
+			W = 50;
+			H = 50;
+			break;
 
-		//H for Held down
-		case 6:
-		srX = 350;
-		srY = 0;
+		case graphicalElements::jellycatInvader:
+			srX = 250;
+			srY = 0;
+			W = 50;
+			H = 50;
+			break;
 
-		W = 50;
-		H = 50;
-		break;
+		case graphicalElements::jellycatInvader2:
+			srX = 250;
+			srY = 50;
+			W = 50;
+			H = 50;
+			break;
 
-		//H for Held down
-		case 7:
-		srX = 400;
-		srY = 0;
+		case graphicalElements::explosion:
+			srX = 300;
+			srY = 0;
+			W = 50;
+			H = 50;
+			break;
 
-		W = 50;
-		H = 50;
-		break;
+		case graphicalElements::friendlyBullet:
+			srX = 2;
+			srY = 100;
+			W = 8;
+			H = 25;
+			break;
+
+		case graphicalElements::held:
+			srX = 350;
+			srY = 0;
+			W = 50;
+			H = 50;
+			break;
+
+		case graphicalElements::jabbed:
+			srX = 400;
+			srY = 0;
+			W = 50;
+			H = 50;
+			break;
 
 	}
 

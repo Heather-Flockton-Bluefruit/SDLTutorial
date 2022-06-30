@@ -1,11 +1,9 @@
 #include "sdlcontrol.h"
 #include "catship.h"
+#include "bullets.h"
 #include "invaders.h"
 
 InvaderGrid gridOfInvaders;
-
-
-int totalNumberOfInvaders = 50;
 
 
 void Invader::draw()
@@ -23,21 +21,26 @@ void InvaderGrid::setupGrid()
 	int newColumn;
 
 	int invader = 0;
-	int sprite[] = {4, 2, 2, 3, 3};
+	int invaderStartPositionX = 175;
+	int invaderStartPositionY = 200;
 
-	int invaderX = 175;
-	int invaderY = 200;
+	int sprite[] = {graphicalElements::jellycatInvader,
+					graphicalElements::mediumCatInvader, 
+					graphicalElements::mediumCatInvader, 
+					graphicalElements::meowthInvader, 
+					graphicalElements::meowthInvader,
+				   };
 
-	for( int rowCounter = 0; rowCounter < 5; rowCounter++ )
+	for( int rowCounter = 0; rowCounter < NumberOfInvaderRows; rowCounter++ )
 	{
-		newRow = (rowCounter * 70);
+		newRow = (rowCounter * (InvaderWidthHeight + GapBetweenInvaders));
 
-		for( int columnCounter = 0; columnCounter < 10; columnCounter++ )
+		for( int columnCounter = 0; columnCounter < NumberOfInvaderColumns; columnCounter++ )
 		{
-			newColumn = (columnCounter * 70);
+			newColumn = (columnCounter * (InvaderWidthHeight + GapBetweenInvaders));
 
-			m_invaders[invader].m_positionX = invaderX + newColumn;
-			m_invaders[invader].m_positionY = invaderY + newRow;
+			m_invaders[invader].m_positionX = invaderStartPositionX + newColumn;
+			m_invaders[invader].m_positionY = invaderStartPositionY + newRow;
 
 			m_invaders[invader].m_onOff = true;
 
@@ -51,22 +54,23 @@ void InvaderGrid::setupGrid()
 
 void InvaderGrid::drawAll()
 {
-	for( int numberOfInvader = 0; numberOfInvader < totalNumberOfInvaders; numberOfInvader++ )
+	for( int whichInvader = 0; whichInvader < totalNumberOfInvaders; whichInvader++ )
 	{
-		m_invaders[numberOfInvader].draw();
+		m_invaders[whichInvader].draw();
 	}
 }
+
 
 int stepIncrement = 1;
 
 void InvaderGrid::moveAllInvaders()
 {
-	if( m_invaders[9].m_positionX > 930 )
+	if( m_invaders[9].m_positionX > (SDLControl::RightOfPlayArea - InvaderWidthHeight) - 20 )
 	{
 		stepIncrement = -stepIncrement;
 	}
 
-	if( m_invaders[0].m_positionX < 47 )
+	if( m_invaders[0].m_positionX < SDLControl::LeftOfPlayArea + 20 )
 	{
 		stepIncrement = -stepIncrement;
 	}
@@ -76,4 +80,43 @@ void InvaderGrid::moveAllInvaders()
 		m_invaders[invader].m_positionX += stepIncrement;
 	}
 
+}
+
+
+void InvaderGrid::collisionDetection()
+{
+	for( int numberOfInvader = 0; numberOfInvader < totalNumberOfInvaders; numberOfInvader++ )
+	{
+		for( int numberOfBullet = 0; numberOfBullet < FriendlyBulletMagazine::BulletCount; numberOfBullet++ )
+		{
+			bool collision = isInCollisionArea(catshipBullets.m_catShipBullet[numberOfBullet].m_bulletPositionX,
+											   catshipBullets.m_catShipBullet[numberOfBullet].m_bulletPositionY,
+											   m_invaders[numberOfInvader].m_positionX,
+											   m_invaders[numberOfInvader].m_positionY,
+											   catshipBullets.m_catShipBullet[numberOfBullet].m_onOff,
+											   m_invaders[numberOfInvader].m_onOff);
+			
+			if( collision )
+			{
+
+				catshipBullets.m_catShipBullet[numberOfBullet].m_onOff = false;
+				m_invaders[numberOfInvader].m_onOff = false;
+			}
+		}
+		
+	}
+}
+
+
+bool InvaderGrid::isInCollisionArea(int bulletX, int bulletY, int invaderX, int invaderY, bool bulletOn, bool invaderOn)
+{
+	if( invaderOn && bulletOn &&
+		((bulletX > invaderX ) && (bulletX < invaderX + InvaderWidthHeight)) && 
+		((bulletY > invaderY ) && (bulletY < invaderY + InvaderWidthHeight))
+		)
+		{
+			return true;
+		}
+
+	return false;
 }

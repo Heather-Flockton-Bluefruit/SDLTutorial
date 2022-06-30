@@ -1,24 +1,26 @@
 #include "sdlcontrol.h"
 #include "catship.h"
+#include "invaders.h"
 
 Catship p1catship;
 
 void Catship::reset()
 {
-	m_catShipPosition = 437;
+	m_catShipPosition = SDLControl::CentreOfPlayArea - CatShipMiddle;
 }
+
 
 void Catship::controller()
 {
-	if( (mysdlcontrol.m_rightPressed) && (m_catShipPosition < 824) )
+	if( (mysdlcontrol.m_rightPressed) && (m_catShipPosition < (SDLControl::RightOfPlayArea - InvaderGrid::GapBetweenInvaders) - CatShipWidth) )
 	{
-		m_catShipPosition += 5;
+		m_catShipPosition += catShipSpeed;
 	}
 
-	if( (mysdlcontrol.m_leftPressed) && (m_catShipPosition > 50) )
+	if( (mysdlcontrol.m_leftPressed) && (m_catShipPosition > (SDLControl::LeftOfPlayArea + InvaderGrid::GapBetweenInvaders)) )
 	{
-		m_catShipPosition -= 5;
+		m_catShipPosition -= catShipSpeed;
 	}
 
-	mysdlcontrol.drawSprite(1, m_catShipPosition, 848);
+	mysdlcontrol.drawSprite(graphicalElements::catship, m_catShipPosition, CatShipY);
 }

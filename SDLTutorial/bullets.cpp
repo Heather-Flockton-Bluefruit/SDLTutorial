@@ -8,29 +8,22 @@ using namespace std;
 
 FriendlyBulletMagazine catshipBullets;
 
-const int totalFriendlyBullets = 5;
-const int centerOfCatship = 70;
-const int bulletStartingY = 832;
-const int bulletSpeed = 3;
-
 int currentFiringPosition = 0;
 int currentBullet = 0;
-bool bulletOn = true;
-
 
 
 void FriendlyBullet::draw()
 {
 	if( m_onOff )
 	{
-		mysdlcontrol.drawSprite(5, m_bulletPositionX, m_bulletPositionY);
+		mysdlcontrol.drawSprite(graphicalElements::friendlyBullet, m_bulletPositionX, m_bulletPositionY);
 	}
 }
 
 
 void FriendlyBulletMagazine::reset()
 {
-	for( int i = 0; i < totalFriendlyBullets; i++ )
+	for( int i = 0; i < BulletCount; i++ )
 	{
 		m_catShipBullet[i].m_onOff = false;
 		cout << "bullet " << i << " is " << m_catShipBullet[i].m_onOff << endl;
@@ -40,11 +33,9 @@ void FriendlyBulletMagazine::reset()
 
 void FriendlyBulletMagazine::drawAll()
 {
-	for( int i = 0; i < totalFriendlyBullets; i++ )
+	for( int i = 0; i < BulletCount; i++ )
 	{
-		const int topOfPlayArea = 50;
-
-		if( m_catShipBullet[i].m_bulletPositionY <= topOfPlayArea )
+		if( m_catShipBullet[i].m_bulletPositionY <= SDLControl::TopOfPlayArea )
 		{
 			m_catShipBullet[i].m_onOff = false;
 		}
@@ -62,15 +53,15 @@ void FriendlyBulletMagazine::fire()
 	{
 		currentFiringPosition = p1catship.m_catShipPosition;
 		
-		for( int whichBullet = 0; whichBullet < totalFriendlyBullets; whichBullet++ )
+		for( int whichBullet = 0; whichBullet < BulletCount; whichBullet++ )
 		{
 			if( m_catShipBullet[whichBullet].m_onOff == false )
 			{
 				currentBullet = whichBullet;
-				m_catShipBullet[currentBullet].m_bulletPositionY = bulletStartingY;
-				m_catShipBullet[currentBullet].m_bulletPositionX = currentFiringPosition + centerOfCatship;
+				m_catShipBullet[currentBullet].m_bulletPositionY = Catship::CatShipY - FriendlyBullet::bulletHeight;
+				m_catShipBullet[currentBullet].m_bulletPositionX = currentFiringPosition + (Catship::CatShipMiddle - FriendlyBullet::bulletWidth);
 				m_catShipBullet[currentBullet].m_onOff = true;
-				whichBullet = totalFriendlyBullets;
+				whichBullet = BulletCount;
 			}
 		}
 	}
@@ -82,12 +73,12 @@ void FriendlyBulletMagazine::fire()
 
 		currentFiringPosition = p1catship.m_catShipPosition;
 		
-		for( int whichBullet = 0; whichBullet < totalFriendlyBullets; whichBullet++ )
+		for( int whichBullet = 0; whichBullet < BulletCount; whichBullet++ )
 		{
 			if( m_catShipBullet[whichBullet].m_onOff == false )
 			{
 				currentBullet = whichBullet;
-				whichBullet = totalFriendlyBullets;
+				whichBullet = BulletCount;
 			}
 			
 			cout << "whichBullet " << whichBullet << endl;

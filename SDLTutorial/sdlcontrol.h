@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <string>
 
-const int SCREEN_WIDTH = 1024;
-const int SCREEN_HEIGHT = 1024;
+const int ScreenWidth = 1024;
+const int ScreenHeight = 1024;
 
 
 class SDLControl
@@ -15,6 +15,12 @@ public:
 	SDL_Renderer* renderer;
 	SDL_Texture* texture;
 	SDL_Texture* backgroundTexture;
+
+	static const int BottomOfPlayArea = 923;
+	static const int TopOfPlayArea = 50;
+	static const int LeftOfPlayArea = 47;
+	static const int RightOfPlayArea = 980;
+	static const int CentreOfPlayArea = 513;
 	
 	bool init();
 	void endOfFrame();
@@ -29,7 +35,6 @@ public:
 	bool m_aPressed;
 	bool m_spacePressed;
 	bool m_spaceHeld;
-	//button jabbed, button held down
 
 private:
 	SDL_Window* window;
@@ -39,5 +44,26 @@ private:
 };
 
 extern SDLControl mysdlcontrol;
+
+struct graphicalElements
+{
+	enum elementNames
+	{
+		catship,
+		catshipSquint,
+		explodedShip1,
+		explodedShip2,
+		mediumCatInvader,
+		mediumCatInvader2,
+		meowthInvader,
+		meowthInvader2,
+		jellycatInvader,
+		jellycatInvader2,
+		explosion,
+		friendlyBullet,
+		held,
+		jabbed,
+	};
+};
 
 #endif
