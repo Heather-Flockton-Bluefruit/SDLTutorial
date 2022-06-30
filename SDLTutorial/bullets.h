@@ -9,6 +9,9 @@
 class FriendlyBullet
 {
 public:
+	static const int bulletWidth = 5;
+	static const int bulletHeight = 25;
+
 	bool m_onOff;
 	int m_bulletPositionY;
 	int m_bulletPositionX;
@@ -22,17 +25,20 @@ private:
 
 
 
-
 class FriendlyBulletMagazine
 {
 public:
-	FriendlyBullet m_catShipBullet[5];
+	static const size_t BulletCount = 5;
+	static const int bulletStartingY = 832;
+	static const int bulletSpeed = 3;
+
+
+	FriendlyBullet m_catShipBullet[BulletCount];
 
 	void reset();
 	void drawAll();
 	void fire();
 
-	
 private:
 
 };

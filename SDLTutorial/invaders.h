@@ -24,13 +24,21 @@ private:
 class InvaderGrid
 {
 public:
-	Invader m_invaders[50];
+	static const size_t InvaderWidthHeight = 50;
+	static const size_t totalNumberOfInvaders = 50;
+	static const size_t GapBetweenInvaders = 20;
+	static const size_t NumberOfInvaderRows = 5;
+	static const size_t NumberOfInvaderColumns = 10;
+
+	Invader m_invaders[totalNumberOfInvaders];
+
 	void setupGrid();
 	void drawAll();
 	void moveAllInvaders();
-
-private:
+	void collisionDetection();
 	
+private:
+	bool isInCollisionArea(int bulletX, int bulletY, int invaderX, int invaderY, bool bulletOn, bool invaderOn);
 };
 
 extern InvaderGrid gridOfInvaders;

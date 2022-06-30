@@ -7,10 +7,7 @@
 #include "invaders.h"
 #include "bullets.h"
 
-const int BOTTOM_OF_PLAY_AREA = 923;
-const int TOP_OF_PLAY_AREA = 50;
-const int LEFT_OF_PLAY_AREA = 47;
-const int RIGHT_OF_PLAY_AREA = 980;
+
 
 int main( int argc, char* args[] )
 {
@@ -30,6 +27,8 @@ int main( int argc, char* args[] )
 		{
 			mysdlcontrol.readInput();
 			mysdlcontrol.drawBackground();
+
+			gridOfInvaders.collisionDetection();
 
 			p1catship.controller();
 			catshipBullets.drawAll();
