@@ -65,12 +65,12 @@ int stepIncrement = 1;
 
 void InvaderGrid::moveAllInvaders()
 {
-	if( m_invaders[9].m_positionX > (SDLControl::RightOfPlayArea - InvaderWidthHeight) - 20 )
+	if( m_invaders[edgeOfGridFinder('r')].m_positionX > (SDLControl::RightOfPlayArea - InvaderWidthHeight) - GapBetweenInvaders )
 	{
 		stepIncrement = -stepIncrement;
 	}
 
-	if( m_invaders[0].m_positionX < SDLControl::LeftOfPlayArea + 20 )
+	if( m_invaders[edgeOfGridFinder('l')].m_positionX < SDLControl::LeftOfPlayArea + GapBetweenInvaders )
 	{
 		stepIncrement = -stepIncrement;
 	}
@@ -108,7 +108,7 @@ void InvaderGrid::collisionDetection()
 }
 
 
-bool InvaderGrid::isInCollisionArea(int bulletX, int bulletY, int invaderX, int invaderY, bool bulletOn, bool invaderOn)
+bool InvaderGrid::isInCollisionArea( int bulletX, int bulletY, int invaderX, int invaderY, bool bulletOn, bool invaderOn )
 {
 	if( invaderOn && bulletOn &&
 		((bulletX > invaderX ) && (bulletX < invaderX + InvaderWidthHeight)) && 
@@ -119,4 +119,44 @@ bool InvaderGrid::isInCollisionArea(int bulletX, int bulletY, int invaderX, int 
 		}
 
 	return false;
+}
+
+
+int furthestLeftInvader;
+int furthestRightInvader;
+int invaderThatIsOn;
+
+int InvaderGrid::edgeOfGridFinder( char direction )
+{
+	int furthestCurrentLeft = SDLControl::LeftOfPlayArea;
+	int furthestCurrentRight = SDLControl::RightOfPlayArea;
+
+	for( int whichInvader = 0; whichInvader < totalNumberOfInvaders; whichInvader++ )
+	{
+		if( m_invaders[whichInvader].m_onOff )
+		{
+			invaderThatIsOn = whichInvader;
+		}
+
+		if( m_invaders[invaderThatIsOn].m_positionX < furthestCurrentRight )
+		{
+			furthestCurrentRight = m_invaders[invaderThatIsOn].m_positionX;
+			furthestLeftInvader = invaderThatIsOn;
+		}
+		if( m_invaders[invaderThatIsOn].m_positionX >= furthestCurrentLeft )
+		{
+			furthestCurrentLeft = m_invaders[invaderThatIsOn].m_positionX;
+			furthestRightInvader = invaderThatIsOn;
+		}
+	}
+
+	if( (direction == 'l' || direction == 'L') )
+	{
+		return furthestLeftInvader;
+	}
+	else if( direction == 'r' || direction == 'R' )
+	{
+		return furthestRightInvader;
+	}
+
 }

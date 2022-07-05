@@ -38,7 +38,8 @@ public:
 	void collisionDetection();
 	
 private:
-	bool isInCollisionArea(int bulletX, int bulletY, int invaderX, int invaderY, bool bulletOn, bool invaderOn);
+	bool isInCollisionArea( int bulletX, int bulletY, int invaderX, int invaderY, bool bulletOn, bool invaderOn );
+	int edgeOfGridFinder( char direction );
 };
 
 extern InvaderGrid gridOfInvaders;
