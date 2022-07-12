@@ -160,3 +160,4 @@ int InvaderGrid::edgeOfGridFinder( char direction )
 	}
 
 }
+

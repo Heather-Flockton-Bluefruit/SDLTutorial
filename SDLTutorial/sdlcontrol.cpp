@@ -288,6 +288,7 @@ void SDLControl::drawSprite(int sprite, int spriteX, int spriteY)
 
 	SDL_Rect sr = {srX, srY, W, H};
 	SDL_Rect dr = {drX, drY, W, H};
+	SDL_BlendMode(SDL_BLENDMODE_BLEND);
 	SDL_RenderCopy(mysdlcontrol.renderer, mysdlcontrol.texture, &sr, &dr);
 }
 
